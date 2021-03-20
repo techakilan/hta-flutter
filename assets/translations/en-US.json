@@ -1,0 +1,11 @@
+{
+    "home_main":"Home",
+    "hospital_main":"Hospital Main",
+    "welcome_message":"Welcome",
+    "email_input_placeholder":"Email Address",
+    "password_input_placeholder":"Password",
+    "forgot_password_text":"FORGOT PASSWORD?",
+    "signup_text":"SIGNUP",
+    "login_text":"Login"
+    
+}
