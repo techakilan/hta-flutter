@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hta/api/api_service.dart';
 import 'package:hta/model/signin_model.dart';
 import 'package:hta/routes/route_names.dart';
+import 'package:hta/utils/api_progress_spinner.dart';
 //import 'package:hta/routes/route_names.dart';
 
 class SigninIndexPage extends StatefulWidget {
@@ -14,7 +15,7 @@ class _SigninIndexPageState extends State<SigninIndexPage> {
   final scaffoldKey = new GlobalKey<ScaffoldState>();
   final formKey = new GlobalKey<FormState>();
   SigninRequestModel requestModel;
-
+  bool isApiCallProcess = false;
   @override
   void initState() {
     super.initState();
@@ -23,6 +24,14 @@ class _SigninIndexPageState extends State<SigninIndexPage> {
 
   @override
   Widget build(BuildContext context) {
+    return ApiProgressSpinner(
+      child: _uiSetup(context),
+      inAsyncCall: isApiCallProcess,
+      opacity: 0.3,
+    );
+  }
+
+  Widget _uiSetup(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     Locale selectedLocale = EasyLocalization.of(context).locale;
 
@@ -178,8 +187,26 @@ class _SigninIndexPageState extends State<SigninIndexPage> {
                             child: TextButton(
                               onPressed: () {
                                 if (validateAndSave()) {
+                                  setState(() {
+                                    isApiCallProcess = true;
+                                  });
                                   APIService apiService = new APIService();
                                   apiService.login(requestModel).then((value) {
+                                    setState(() {
+                                      isApiCallProcess = false;
+                                    });
+                                    print(value);
+                                    if (value == null) {
+                                      final unknownErrorSnackBar = SnackBar(
+                                        content: Text(
+                                            'Sorry! An Unknown error occurred'),
+                                        duration: const Duration(seconds: 5),
+                                      );
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(unknownErrorSnackBar);
+                                      return;
+                                    }
+
                                     if (!value.hasError) {
                                       if (value.token.isNotEmpty) {
                                         formKey.currentState.reset();
@@ -187,13 +214,12 @@ class _SigninIndexPageState extends State<SigninIndexPage> {
                                             .pushReplacementNamed(homeRoute);
                                       }
                                     } else {
-                                      print(value.message);
-                                      final snackBar = SnackBar(
+                                      final loginFailedSnackBar = SnackBar(
                                         content: Text(value.message),
                                         duration: const Duration(seconds: 2),
                                       );
                                       ScaffoldMessenger.of(context)
-                                          .showSnackBar(snackBar);
+                                          .showSnackBar(loginFailedSnackBar);
                                     }
                                   });
                                 } else {
