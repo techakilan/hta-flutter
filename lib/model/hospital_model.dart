@@ -1,5 +1,3 @@
-import 'package:flutter/widgets.dart';
-
 class HospitalModel {
   String id;
   String name;

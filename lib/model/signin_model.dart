@@ -11,7 +11,7 @@ class SigninResponseModel {
       message: json["message"] != null ? json["message"] : "",
       token: json["jwtToken"] != null ? json["jwtToken"] : "",
       email: json["email"] != null ? json["email"] : "",
-      hasError: json["hasError"] != null ? json["hasError"] : "",
+      hasError: json["hasError"] != null ? json["hasError"] : true,
     );
   }
 

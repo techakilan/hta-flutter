@@ -6,6 +6,9 @@
     "password_input_placeholder":"Password",
     "forgot_password_text":"FORGOT PASSWORD?",
     "signup_text":"SIGNUP",
-    "login_text":"Login"
+    "login_text":"Login",
+    "firstname":"Firstname",
+    "lastname":"Lastname"
+
     
 }

@@ -4,6 +4,9 @@ import 'package:hta/api/api_service.dart';
 import 'package:hta/model/signin_model.dart';
 import 'package:hta/routes/route_names.dart';
 import 'package:hta/utils/api_progress_spinner.dart';
+import 'package:hta/utils/clippath_util.dart';
+import 'package:hta/utils/custom_decoration.dart';
+import 'package:hta/utils/validation_util.dart';
 //import 'package:hta/routes/route_names.dart';
 
 class SigninIndexPage extends StatefulWidget {
@@ -159,24 +162,35 @@ class _SigninIndexPageState extends State<SigninIndexPage> {
                           Padding(
                             padding: const EdgeInsets.only(
                                 right: 40, left: 40, top: 20),
-                            child: Text(
-                              tr('forgot_password_text'),
-                              style: TextStyle(
-                                fontSize: 12,
-                                color: Colors.orange,
-                                fontWeight: FontWeight.w700,
+                            child: InkWell(
+                              onTap: () {
+                                print("forgot password pressed");
+                              },
+                              child: Text(
+                                tr('forgot_password_text'),
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.orange,
+                                  fontWeight: FontWeight.w700,
+                                ),
                               ),
                             ),
                           ),
                           Padding(
                             padding: const EdgeInsets.only(
                                 right: 40, top: 20, left: 40),
-                            child: Text(
-                              tr('signup_text'),
-                              style: TextStyle(
-                                fontSize: 12,
-                                color: Colors.orange,
-                                fontWeight: FontWeight.w700,
+                            child: InkWell(
+                              onTap: () {
+                                Navigator.of(context)
+                                    .pushReplacementNamed(signupRoute);
+                              },
+                              child: Text(
+                                tr('signup_text'),
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.orange,
+                                  fontWeight: FontWeight.w700,
+                                ),
                               ),
                             ),
                           ),
@@ -195,7 +209,6 @@ class _SigninIndexPageState extends State<SigninIndexPage> {
                                     setState(() {
                                       isApiCallProcess = false;
                                     });
-                                    print(value);
                                     if (value == null) {
                                       final unknownErrorSnackBar = SnackBar(
                                         content: Text(
@@ -320,87 +333,5 @@ class _SigninIndexPageState extends State<SigninIndexPage> {
       return true;
     }
     return false;
-  }
-}
-
-InputDecoration customInputDecoration(String hint, Icon icon) {
-  return InputDecoration(
-    hintText: hint,
-    hintStyle: TextStyle(color: Colors.grey),
-    contentPadding: EdgeInsets.only(top: 15, bottom: 15),
-    enabledBorder: UnderlineInputBorder(
-      borderSide: BorderSide(color: Colors.grey[300], width: 2.0),
-    ),
-    focusedBorder: UnderlineInputBorder(
-        borderSide: BorderSide(color: Colors.orange, width: 1.0)),
-    prefixIcon: icon,
-  );
-}
-
-String customValidate(value) {
-  return value.isEmpty ? "Please enter value" : null;
-}
-
-class DrawClipSmallLTR extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    Path path = Path();
-    path.addOval(
-      Rect.fromCircle(center: Offset(size.width, 50.0), radius: 150),
-    );
-    return path;
-  }
-
-  @override
-  bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
-    return true;
-  }
-}
-
-class DrawClipBigLTR extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    Path path = Path();
-    path.addOval(
-      Rect.fromCircle(center: Offset(size.width * 0.3, 50.0), radius: 200),
-    );
-    return path;
-  }
-
-  @override
-  bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
-    return true;
-  }
-}
-
-class DrawClipSmallRTL extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    Path path = Path();
-    path.addOval(
-      Rect.fromCircle(center: Offset(size.width * 0.3, 50.0), radius: 150),
-    );
-    return path;
-  }
-
-  @override
-  bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
-    return true;
-  }
-}
-
-class DrawClipBigRTL extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    Path path = Path();
-    path.addOval(
-      Rect.fromCircle(center: Offset(size.width, 50.0), radius: 200),
-    );
-    return path;
-  }
-
-  @override
-  bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
-    return true;
   }
 }

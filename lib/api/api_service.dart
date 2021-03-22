@@ -1,4 +1,5 @@
 import 'package:hta/api/shared_service.dart';
+import 'package:hta/model/api_models/signup_model.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -22,6 +23,16 @@ class APIService {
   }
 
   //sign up/register
-
+  Future<SignupResponseModel> register(SignupRequestModel requestModel) async {
+    try {
+      final response = await http.post(
+          Uri.http('10.0.2.2:8000', 'api/register.php'),
+          body: json.encode(requestModel.toJson()));
+      return SignupResponseModel.fromJson(json.decode(response.body));
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
+  }
   //sign out
 }
