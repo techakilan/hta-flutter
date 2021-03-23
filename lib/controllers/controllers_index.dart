@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hta/pages/ad_index_page.dart';
+import 'package:hta/pages/bookings_user.dart';
 //import 'package:hta/pages/home_index_page.dart';
 import 'package:hta/pages/hospital_index_page.dart';
 import 'package:hta/pages/offers_index_page.dart';
@@ -14,6 +15,7 @@ class _IndexControllerState extends State<IndexController> {
   PageController _pageController = PageController();
   List<Widget> _screens = [
     HospitalIndexPage(),
+    BookingsUser(),
     AdsIndexPage(),
     OffersIndexPage(),
     ProfileIndexPage(),
@@ -51,6 +53,12 @@ class _IndexControllerState extends State<IndexController> {
               Icons.local_hospital_outlined,
             ),
             label: 'Hospital',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.assignment_outlined,
+            ),
+            label: 'Bookings',
           ),
           BottomNavigationBarItem(
             icon: Icon(
