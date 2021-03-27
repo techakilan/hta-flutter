@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hta/pages/ad_index_page.dart';
-import 'package:hta/pages/bookings_user.dart';
-//import 'package:hta/pages/home_index_page.dart';
+import 'package:hta/pages/bookings_user_page.dart';
 import 'package:hta/pages/hospital_index_page.dart';
 import 'package:hta/pages/offers_index_page.dart';
 import 'package:hta/pages/profile_index_page.dart';
@@ -15,12 +14,10 @@ class _IndexControllerState extends State<IndexController> {
   PageController _pageController = PageController();
   List<Widget> _screens = [
     HospitalIndexPage(),
-    BookingsUser(),
+    BookingsUserPage(),
     AdsIndexPage(),
     OffersIndexPage(),
     ProfileIndexPage(),
-    //HomeMainPage(),
-    //WorkoutMainPage()
   ];
   int _selectedIndex = 0;
   void _onPageChanged(int selectedIndex) {

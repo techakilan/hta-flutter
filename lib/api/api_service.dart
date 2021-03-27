@@ -10,7 +10,10 @@ class APIService {
     SigninResponseModel signinResponseModel;
     try {
       final response = await http.post(
-          Uri.http('10.0.2.2:8000', 'api/login.php'),
+          //ec2-13-235-81-98.ap-south-1.compute.amazonaws.com
+          Uri.http('ec2-13-126-255-23.ap-south-1.compute.amazonaws.com:8000',
+              'api/login.php'),
+          //Uri.http('10.0.2.2:8000', 'api/login.php'),
           body: json.encode(requestModel.toJson()));
       signinResponseModel =
           SigninResponseModel.fromJson(json.decode(response.body));
@@ -26,7 +29,9 @@ class APIService {
   Future<SignupResponseModel> register(SignupRequestModel requestModel) async {
     try {
       final response = await http.post(
-          Uri.http('10.0.2.2:8000', 'api/register.php'),
+          //Uri.http('10.0.2.2:8000', 'api/register.php'),
+          Uri.http('ec2-13-126-255-23.ap-south-1.compute.amazonaws.com:8000',
+              'api/register.php'),
           body: json.encode(requestModel.toJson()));
       return SignupResponseModel.fromJson(json.decode(response.body));
     } catch (e) {
